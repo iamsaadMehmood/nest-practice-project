@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   Request,
   UseGuards,
@@ -26,5 +28,10 @@ export class UsersController {
   @UseGuards(JwtAuthGuard, AdminGuard)
   getAllUsers() {
     return this.usersService.getAllUsers();
+  }
+  @Delete('/:id')
+  @UseGuards(JwtAuthGuard, AdminGuard)
+  deleteUser(@Param('id') id: string) {
+    return this.usersService.deleteUser(id);
   }
 }
