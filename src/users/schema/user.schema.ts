@@ -14,10 +14,11 @@ export class User {
   @Prop()
   phoneNumber: string;
 
- 
-
   @Prop({ required: true })
   hash: string;
+
+  @Prop({ default: false })
+  isAdmin: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

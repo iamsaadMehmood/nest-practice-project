@@ -19,14 +19,12 @@ export class AuthService {
     if (!existingUser) {
       throw new NotFoundException('username is not registered');
     }
-    const passwordValid = await bcrypt.compare(
-      dto.password,
-      existingUser.hash,
-    );
+    const passwordValid = await bcrypt.compare(dto.password, existingUser.hash);
     const payload = {
       sub: existingUser.id,
       name: existingUser.name,
       username: existingUser.username,
+      isAdmin: existingUser.isAdmin,
     };
     if (passwordValid) {
       return {
@@ -40,6 +38,9 @@ export class AuthService {
   async signup(dto: CreateUserDto) {
     return this.usersSvc.createUser(dto);
   }
+  async adminSignup(dto: CreateUserDto) {
+    return this.usersSvc.createAdminUser(dto);
+  }
   async validateUser(username: string, password: string) {
     const user = await this.usersSvc.findOne(username);
 
@@ -48,6 +49,7 @@ export class AuthService {
     }
     const passwordValid = await bcrypt.compare(password, user.hash);
     if (!passwordValid) return null;
+    console.log('user', user);
     return user;
   }
 }

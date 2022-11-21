@@ -22,6 +22,22 @@ export class UsersService {
       name: dto.name,
     });
   }
+  async createAdminUser(dto: CreateUserDto) {
+    const exists = await this.findOne(dto.username);
+    if (exists) {
+      throw new BadRequestException('username is already registered');
+    }
+    const saltOrRounds = 10;
+    const hashedPassword = await bcrypt.hash(dto.password, saltOrRounds);
+    return this.userModel.create({
+      username: dto.username,
+      hash: hashedPassword,
+      phoneNumber: dto.phoneNumber,
+      name: dto.name,
+      isAdmin: true,
+    });
+  }
+
   async findOne(username: string) {
     return await this.userModel.findOne({ username });
   }

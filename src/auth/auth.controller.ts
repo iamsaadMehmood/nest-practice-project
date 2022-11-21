@@ -16,4 +16,8 @@ export class AuthController {
   signup(@Body() body: CreateUserDto) {
     return this.authSvc.signup(body);
   }
+  @Post('/admin/signup')
+  adminSignup(@Body() body: CreateUserDto) {
+    return this.authSvc.adminSignup(body);
+  }
 }

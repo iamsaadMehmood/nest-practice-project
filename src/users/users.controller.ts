@@ -9,6 +9,7 @@ import {
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { AdminGuard } from '../auth/guards/admin.guard';
 
 @Controller('users')
 export class UsersController {
@@ -17,5 +18,10 @@ export class UsersController {
   @Get('/profile')
   getProfile(@Request() req) {
     return this.usersService.getProfile(req.user.username);
+  }
+  @Get()
+  @UseGuards(JwtAuthGuard, AdminGuard)
+  getAllUsers() {
+    return 'done';
   }
 }
