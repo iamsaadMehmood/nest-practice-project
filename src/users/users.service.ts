@@ -5,6 +5,7 @@ import { User, UserDocument } from './schema/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 @Injectable()
+
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
@@ -43,5 +44,9 @@ export class UsersService {
   }
   async getProfile(username: string) {
     return await this.findOne(username);
+  }
+  async getAllUsers() {
+    const users = await this.userModel.find({ isAdmin: false }).exec();
+    return users;
   }
 }

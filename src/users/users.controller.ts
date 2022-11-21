@@ -10,8 +10,11 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AdminGuard } from '../auth/guards/admin.guard';
+import { Serialize } from './interceptors/seriliaze.interceptor';
+import { UserDto } from './dto/user.dto';
 
 @Controller('users')
+@Serialize(UserDto)
 export class UsersController {
   constructor(private usersService: UsersService) {}
   @UseGuards(JwtAuthGuard)
@@ -22,6 +25,6 @@ export class UsersController {
   @Get()
   @UseGuards(JwtAuthGuard, AdminGuard)
   getAllUsers() {
-    return 'done';
+    return this.usersService.getAllUsers();
   }
 }
