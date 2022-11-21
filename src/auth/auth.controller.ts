@@ -3,7 +3,7 @@ import { AuthDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import { Serialize } from 'src/users/interceptors/seriliaze.interceptor';
+import { Serialize } from 'src/users/interceptors/serialize.interceptor';
 import { UserDto } from 'src/users/dto/user.dto';
 
 @Controller('auth')
