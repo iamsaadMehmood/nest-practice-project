@@ -65,8 +65,6 @@ export class UsersService {
     }
     const user = await this.findOneById(id);
     console.log(user);
-   
-
     const res = await this.userModel.deleteOne({ _id: id });
     return user;
   }
